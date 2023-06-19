@@ -29,7 +29,9 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
     print(getxAddProductController.cate.length);
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xffF7F6F4),
         appBar: AppBar(
+          backgroundColor: Colors.orangeAccent,
           title: Text("Edit Category2"),
         ),
         body: StreamBuilder(
@@ -83,7 +85,10 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                       child: Container(
                         margin: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black)),
+                          color: const Color(0xdbe5e5e5),
+
+                          // border: Border.all(color: Colors.black)
+                    ),
                         child: Obx(
                           () => ListTile(
                             title: Text("${data[index]}"),

@@ -112,8 +112,10 @@ class _DataEntryScreenState extends State<DataEntryScreen> {
               ),
               txtField("Enter Product Company",
                   getxAddProductController.txtProductCompany, 1),
-              txtField("Enter Product Category",
-                  getxAddProductController.txtProductCategory, 1),
+              txtField("Enter Product Review",
+                  getxAddProductController.txtProductReview, 1),
+              txtField("Enter Product Total Review",
+                  getxAddProductController.txtProductTotalReview, 1),
               txtField("Enter Product Description",
                   getxAddProductController.txtProductDescription, 5),
               txtField("Enter Product Image",
@@ -134,25 +136,19 @@ class _DataEntryScreenState extends State<DataEntryScreen> {
                       (getxAddProductController.txtProductCategory.text !=
                           "")) {
                     AddProductModal addProduct = AddProductModal(
-                      productDiscount:
-                          getxAddProductController.txtProductDiscount.text,
-                      productDiscountedPrice: getxAddProductController
-                          .txtProductDiscountedPrice.text,
+                      productDiscount: getxAddProductController.txtProductDiscount.text,
+                      productDiscountedPrice: getxAddProductController.txtProductDiscountedPrice.text,
                       productName: getxAddProductController.txtProductName.text,
-                      productPrice:
-                          getxAddProductController.txtProductPrice.text,
-                      productQuantity:
-                          getxAddProductController.txtProductQuantity.text,
-                      productCategory:
-                          getxAddProductController.txtProductCategory.text,
-                      productCompany:
-                          getxAddProductController.txtProductCompany.text,
-                      productDescription:
-                          getxAddProductController.txtProductDescription.text,
+                      productPrice: getxAddProductController.txtProductPrice.text,
+                      productQuantity: getxAddProductController.txtProductQuantity.text,
+                      productCategory: getxAddProductController.txtProductCategory.text,
+                      productCompany: getxAddProductController.txtProductCompany.text,
+                      productDescription: getxAddProductController.txtProductDescription.text,
                       image: getxAddProductController.txtProductImage.text,
+                      review: getxAddProductController.txtProductReview.text,
+                      totalReviews: getxAddProductController.txtProductTotalReview.text,
                     );
-                    bool? check = await FireBaseHelper.fireBaseHelper
-                        .addProduct(addProduct);
+                    bool? check = await FireBaseHelper.fireBaseHelper.addProduct(addProduct);
                     if (check == true) {
                       getxAddProductController.txtProductCategory.clear();
                       getxAddProductController.txtProductPrice.clear();

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class AddProductController extends GetxController
 {
 
+
   RxList cate = [].obs;
   String? id;
   RxBool checkAddCategory = true.obs;
@@ -38,4 +39,6 @@ class AddProductController extends GetxController
   TextEditingController txtProductImage = TextEditingController(text: "https://sun9-57.userapi.com/5LaM1quvZBUHROPNJeFRwggW6v95Alr2xlVsNw/ba3Q_NrAQaA.jpg");
   TextEditingController txtUpdateSingleCategory = TextEditingController();
   TextEditingController txtAddCategory = TextEditingController();
+  TextEditingController txtProductReview = TextEditingController();
+  TextEditingController txtProductTotalReview = TextEditingController();
 }

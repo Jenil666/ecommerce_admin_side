@@ -57,10 +57,14 @@ class UpdateProductDialogBox extends StatelessWidget {
                   productCompany: getxUpdateDialogController.txtCompany.text,
                 );
                 FireBaseHelper.fireBaseHelper.updateData(UpdateData);
-              }, child: Text("Update")),
+              },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent),
+                  child: Text("Update")),
               ElevatedButton(onPressed: () {
                 Get.back();
-              }, child: Text("Cancle")),
+              },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent),
+                  child: Text("Cancle")),
             ],
           ),
         ],

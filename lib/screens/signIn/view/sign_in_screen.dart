@@ -1,5 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'dart:async';
+
 import 'package:ecommerce_admin_side/screens/signIn/controller/signInScreenController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../utils/fire_base_helper.dart';
+import '../../../utils/shr_helper.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -17,6 +20,12 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   SignInScreenController getxSignInScreenController = Get.put(SignInScreenController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getxSignInScreenController.getAdminData();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
@@ -108,13 +117,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     () =>  InkWell(
                   onTap:() async {
                     getxSignInScreenController.checkCircularProgressIndicator.value = true;
-                    if(getxSignInScreenController.buttonData.value == "Tap To Continue")
-                    {
-                      getxSignInScreenController.checkCircularProgressIndicator.value = false;
-                      Get.offAllNamed('/navagation');
-                      // Get.
-                      // snack-bar("Done","Done");
-                    }
+                    getxSignInScreenController.getUid();
+                    Timer(Duration(seconds: 3), () {
+                      checkSignIn();
+                    });
                     if((getxSignInScreenController.txtEmail.text =="") || (getxSignInScreenController.txtPassword.text ==""))
                     {
                       getxSignInScreenController.checkCircularProgressIndicator.value = false;
@@ -181,7 +187,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     bool? check = await FireBaseHelper.fireBaseHelper.sinhInThroughGoogle();
                     if(check == true)
                     {
-                      Get.offAllNamed('/dataEntry');
+                      // getxSignInScreenController.getUid();
+                      Timer(Duration(seconds: 3), () {FireBaseHelper.fireBaseHelper.addAdmin();});
+                      Shr.shr.setData(true);
+                      getxSignInScreenController.checkCircularProgressIndicator.value = false;
+                      Get.offAllNamed('/navagation');
                     }
                   },
                   child: Container(
@@ -242,5 +252,47 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
       ),
     ));
+  }
+  int i = 0;
+  bool verified = false;
+  void checkSignIn() {
+    if(getxSignInScreenController.buttonData.value == "Tap To Continue")
+    {
+      i++;
+      print('$i times Method Call');
+      print("==================== Uid ${getxSignInScreenController.uid}");
+      if(getxSignInScreenController.uid.value != "")
+      {
+        for(int i=0;i<getxSignInScreenController.adminDatas.length;i++)
+        {
+          if(getxSignInScreenController.adminDatas[i] == getxSignInScreenController.uid.value)
+          {
+            print("============================== Done");
+            Shr.shr.setData(true);
+            verified = true;
+            getxSignInScreenController.checkCircularProgressIndicator.value = false;
+            Get.offAllNamed('/navagation');
+            i = 0;
+            break;
+          }
+        }
+        if(verified == false)
+        {
+          Get.snackbar("Ecommerce", "You Are Verified as an User.Create An Admin Account",onTap: (snack) {
+            Get.toNamed('/register');
+          },);
+        }
+      }
+      else
+      {
+        if(i<100) {
+          checkSignIn();
+        }
+      }
+      // getxSignInScreenController.checkCircularProgressIndicator.value = false;
+      // Get.offAllNamed('/navagation');
+      // Get.
+      // snack-bar("Done","Done");
+    }
   }
 }

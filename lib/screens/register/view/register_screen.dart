@@ -132,7 +132,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Obx(
                       () =>  InkWell(
                     onTap: () async {
-                      
                       getxRegisterScreenController.chechCircularProgressIndicator.value = true;
                       bool? check;
                       if(getxRegisterScreenController.buttonText.value == "Tap To Continue")
@@ -159,6 +158,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           getxRegisterScreenController.chechCircularProgressIndicator.value = false;
                           // getxRegisterScreenController.buttonText.value = ""
                           Get.snackbar("Jenil", "Account Created");
+                          FireBaseHelper.fireBaseHelper.addAdmin();
                           // Get.toNamed("/signIn");
                           getxRegisterScreenController.buttonText.value = "Tap To Continue";
                         }

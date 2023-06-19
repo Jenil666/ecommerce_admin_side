@@ -20,6 +20,7 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.orangeAccent,
           title: const Text("Send Notification"),
         ),
         body: StreamBuilder(
@@ -110,14 +111,20 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                 {
                                   Get.snackbar("Ecommerce", "Provide Title & Body");
                                 }
-                              }, child: const Text("Send"),),
+                              },
+                                style: ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent),
+                                child: const Text("Send"),),
                             ],
                           ),
                         );
                       },
-                      child: ListTile(
-                        title: Text("${data[index].name}"),
-                        subtitle: Text("${data[index].email}"),
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        color: const Color(0xdbe5e5e5),
+                        child: ListTile(
+                          title: Text("${data[index].name}"),
+                          subtitle: Text("${data[index].email}"),
+                        ),
                       ),
                   );
                 },

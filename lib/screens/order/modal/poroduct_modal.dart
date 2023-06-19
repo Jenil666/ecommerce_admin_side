@@ -1,4 +1,5 @@
-class AddProductModal {
+class ProductModal
+{
   String? productName,
       productPrice,
       productDiscount,
@@ -7,11 +8,10 @@ class AddProductModal {
       productDescription,
       productCompany,
       productCategory,
-      image,
-      review,
-      totalReviews;
+      productId,
+      productImage;
 
-  AddProductModal({
+  ProductModal({
     this.productName,
     this.productPrice,
     this.productDiscount,
@@ -20,8 +20,7 @@ class AddProductModal {
     this.productCategory,
     this.productCompany,
     this.productDescription,
-    this.image,
-    this.review,
-    this.totalReviews,
+    this.productId,
+    this.productImage,
   });
 }
