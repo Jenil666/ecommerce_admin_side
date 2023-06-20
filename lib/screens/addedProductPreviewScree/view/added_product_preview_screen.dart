@@ -28,8 +28,7 @@ class _AddedProductPreviewScreenState extends State<AddedProductPreviewScreen> {
     // TODO: implement initState
     super.initState();
     userData.value = FireBaseHelper.fireBaseHelper.userData();
-    print("================== data");
-    print(userData['Photo']);
+
   }
 
   @override
@@ -51,13 +50,10 @@ class _AddedProductPreviewScreenState extends State<AddedProductPreviewScreen> {
                 ),
               );
             } else if (snapshot.hasData) {
-              print("=====================Has Data");
               List<AddProductPreviewModal> listData = [];
               QuerySnapshot? snapData = snapshot.data;
-              // print(snapData);
               for (var x in snapData!.docs) {
                 // snapData.docs[0].id;
-                print("Done =====================????/");
                 Map? data = x.data() as Map;
 
                 AddProductPreviewModal p1 = AddProductPreviewModal(
@@ -71,9 +67,10 @@ class _AddedProductPreviewScreenState extends State<AddedProductPreviewScreen> {
                   productDescription: data['Description'],
                   productId: x.id,
                   productImage: data['image'],
+                  productReview: data['Review'],
+                  productTotalReview: data['Total Review'],
                 );
                 listData.add(p1);
-                print("Name ============ ${data['Name']}");
               }
               return ListView.builder(
                 itemBuilder: (context, index) {

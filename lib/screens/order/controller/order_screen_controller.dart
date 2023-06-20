@@ -7,30 +7,34 @@ import 'package:ecommerce_admin_side/utils/fire_base_helper.dart';
 import 'package:get/get.dart';
 
 class OrderScreenController extends GetxController {
-  // RxList<Map> datas = <Map>[].obs;
+  RxBool circularProgressIndicatorForDispatchButton = false.obs;
   RxBool showProcess = false.obs;
   RxList<UserData> userData = <UserData>[].obs;
   RxList<ProductModal> productData = <ProductModal>[].obs;
   List uids = [];
-  List product = [];
-
+  List productIds = [];
+  List autoIdsOfBuyCollection = [];
   void getOrderData() async {
-    QuerySnapshot? querySnapshot =
-        await FireBaseHelper.fireBaseHelper.readOrderData();
+    QuerySnapshot? querySnapshot = await FireBaseHelper.fireBaseHelper.readOrderData();
     var mapData = querySnapshot.docs;
     var data;
     List productArray = [];
+    uids.clear();
+    productIds.clear();
+    autoIdsOfBuyCollection.clear();
     for (int i = 0; i < mapData.length; i++) {
       showProcess.value = true;
       uids.add(mapData[i]['Uid']);
-      product.add(mapData[i]['products']);
+      productIds.add(mapData[i]['products']);
+      autoIdsOfBuyCollection.add(mapData[i].id);
     }
-    for (int i = 0; i < product.length; i++) {
-      QuerySnapshot? querySnapshot =
-          await FireBaseHelper.fireBaseHelper.readDataFromId(id: product[i]);
-      data = querySnapshot.docs;
-      Timer(Duration(seconds: 1), () {
+    productData.clear();
+    for(int i = 0;i<productIds.length;i++)
+      {
+        QuerySnapshot? querySnapshotData = await FireBaseHelper.fireBaseHelper.readDataFromId(id: productIds[i]);
+        data = querySnapshotData.docs;
         ProductModal p1 = ProductModal(
+          productId: data[0].id,
           productCompany: data[0]['Company'],
           productCategory: data[0]['Catedory'],
           productQuantity: data[0]['Quantity'],
@@ -39,21 +43,17 @@ class OrderScreenController extends GetxController {
           productDiscountedPrice: data[0]['Discounted Price'],
           productDiscount: data[0]['Discount'],
           productDescription: data[0]['Description'],
-          productId: data[0].id,
           productImage: data[0]['image'],
         );
         productData.add(p1);
-        print("====================== data check ");
-        // print(    productData[i].productName);
-        print(data[0].id);
-      });
-    }
+      }
+    getUserDatas();
   }
 
   Future<void> getUserDatas() async {
+    userData.clear();
     for (int i = 0; i < uids.length; i++) {
-      QuerySnapshot? querySnashort =
-          await FireBaseHelper.fireBaseHelper.readUserDataBaseOnUid(uids[i]);
+      QuerySnapshot? querySnashort = await FireBaseHelper.fireBaseHelper.readUserDataBaseOnUid(uids[i]);
       var userDatas = querySnashort.docs;
       String name = userDatas[0]['Name'];
       String address = userDatas[0]['Address'];
@@ -71,5 +71,6 @@ class OrderScreenController extends GetxController {
       userData.add(u1);
     }
     showProcess.value = false;
+    circularProgressIndicatorForDispatchButton.value = false;
   }
 }

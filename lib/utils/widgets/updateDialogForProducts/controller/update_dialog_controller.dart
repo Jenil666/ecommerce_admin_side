@@ -16,4 +16,6 @@ class UpdateDialogController extends GetxController
   TextEditingController txtQuantity = TextEditingController();
   TextEditingController txtUid = TextEditingController();
   TextEditingController txtImage = TextEditingController();
+  TextEditingController txtReview = TextEditingController();
+  TextEditingController txtTotalReview = TextEditingController();
 }

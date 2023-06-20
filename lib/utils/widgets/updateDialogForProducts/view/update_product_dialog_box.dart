@@ -21,6 +21,8 @@ class UpdateProductDialogBox extends StatelessWidget {
     getxUpdateDialogController.txtDescription = TextEditingController(text: "${data!.productDescription}");
     getxUpdateDialogController.txtCompany = TextEditingController(text: "${data!.productCompany}");
     getxUpdateDialogController.txtCategory = TextEditingController(text: "${data!.productCategory}");
+    getxUpdateDialogController.txtReview = TextEditingController(text: "${data!.productReview}");
+    getxUpdateDialogController.txtTotalReview = TextEditingController(text: "${data!.productTotalReview}");
   }
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,8 @@ class UpdateProductDialogBox extends StatelessWidget {
           updateTxtField("Enter Quantity",getxUpdateDialogController.txtQuantity),
           updateTxtField("Enter Discount",getxUpdateDialogController.txtDiscount),
           updateTxtField("Enter DiscountedPrice",getxUpdateDialogController.txtDiscountedPrice),
+          updateTxtField("Enter Review",getxUpdateDialogController.txtReview),
+          updateTxtField("Enter Total Review",getxUpdateDialogController.txtTotalReview),
           // updateTxtField("Enter Uid",getxUpdateDialogController.txtUid),
           updateTxtField("Enter Image",getxUpdateDialogController.txtImage),
           SizedBox(height: 10,),
@@ -55,6 +59,8 @@ class UpdateProductDialogBox extends StatelessWidget {
                   productQuantity: getxUpdateDialogController.txtQuantity.text,
                   productCategory: getxUpdateDialogController.txtCategory.text,
                   productCompany: getxUpdateDialogController.txtCompany.text,
+                  productTotalReview: getxUpdateDialogController.txtTotalReview.text,
+                  productReview: getxUpdateDialogController.txtReview.text,
                 );
                 FireBaseHelper.fireBaseHelper.updateData(UpdateData);
               },

@@ -18,8 +18,7 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 0), () {getxOrderScreenController.getOrderData();});
-    Timer(Duration(seconds: 2), () {getxOrderScreenController.getUserDatas();});
+    getxOrderScreenController.getOrderData();
   }
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class _OrderScreenState extends State<OrderScreen> {
           backgroundColor: Colors.orangeAccent,
           title: Text("Order Screen"),
         ),
-        body: Obx(
+        body: getxOrderScreenController.userData != []?Obx(
           () =>  ListView.builder(
             itemCount: getxOrderScreenController.userData.value.length,
             itemBuilder: (context, index) {
@@ -49,7 +48,7 @@ class _OrderScreenState extends State<OrderScreen> {
               ),
             );
           },),
-        )),
+        ):Center(child: CircularProgressIndicator(color: Colors.deepOrange,),)),
     );
   }
 }

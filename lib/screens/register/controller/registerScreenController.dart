@@ -11,8 +11,7 @@ class RegisterScreenController extends GetxController
   async {
     QuerySnapshot? querySnap = await FireBaseHelper.fireBaseHelper.verifyAdmin();
     var data = querySnap.docs;
-    print('Data');
-    print(data[0]['uid']);
+
   }
   //ToDo image Variables
   String backGround = "assets/login_images/back_ground.png";

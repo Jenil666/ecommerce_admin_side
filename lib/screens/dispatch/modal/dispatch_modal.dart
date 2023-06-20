@@ -1,4 +1,5 @@
-class AddProductPreviewModal {
+class DispatchModal
+{
   String? productName,
       productPrice,
       productDiscount,
@@ -8,11 +9,9 @@ class AddProductPreviewModal {
       productCompany,
       productCategory,
       productId,
-      productImage,
-      productReview,
-      productTotalReview;
+      productImage;
 
-  AddProductPreviewModal({
+  DispatchModal({
     this.productName,
     this.productPrice,
     this.productDiscount,
@@ -23,7 +22,5 @@ class AddProductPreviewModal {
     this.productDescription,
     this.productId,
     this.productImage,
-    this.productTotalReview,
-    this.productReview,
   });
 }

@@ -26,7 +26,6 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(getxAddProductController.cate.length);
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF7F6F4),

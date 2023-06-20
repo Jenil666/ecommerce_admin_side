@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../screens/addProduct/controller/addProductController.dart';
 import '../screens/addedProductPreviewScree/modal/added_product_preview_modal.dart';
+import '../screens/order/controller/order_screen_controller.dart';
 
 class FireBaseHelper {
   static FireBaseHelper fireBaseHelper = FireBaseHelper._();
@@ -26,8 +27,6 @@ class FireBaseHelper {
         return true;
       },
     ).catchError((e) {
-      print("===============================");
-      print(e);
       return false;
     });
   }
@@ -87,7 +86,6 @@ class FireBaseHelper {
 
   Future<bool> addProduct(AddProductModal productDetails) async {
     User? admin = await firebaseAuth.currentUser;
-    // print("====================== ${productDetails.productName}");
     return inse.collection('Product').add(
       {
         "Name": productDetails.productName,
@@ -113,7 +111,6 @@ class FireBaseHelper {
   }
 
   Future<void> updateData(AddProductPreviewModal data) {
-    print("id ======================================${data.productId}");
     return inse.collection('Product').doc("${data.productId}").set({
       "Catedory": data.productCategory,
       "Company": data.productCompany,
@@ -125,6 +122,8 @@ class FireBaseHelper {
       "Quantity": data.productQuantity,
       "Uid": data.productId,
       "image": data.productImage,
+      "Total Review":data.productTotalReview,
+      "Review":data.productReview,
     });
   }
 
@@ -146,7 +145,6 @@ class FireBaseHelper {
     getx.checkAddCategory.value = false;
     List newCate = list;
     if (category != null) {
-      print("Process");
       newCate.add(category);
     }
     return inse.collection('Category').doc(getx.id).set({
@@ -162,10 +160,6 @@ class FireBaseHelper {
     User? user = firebaseAuth.currentUser;
     bool enterData = true;
     for (int i = 0; i < getxSignInScreenController.adminDatas.length; i++) {
-      print("========================= datas");
-      print(getxSignInScreenController.adminDatas[i]);
-      print('================================== new');
-      print(user!.uid);
       if (getxSignInScreenController.adminDatas[i] == user!.uid) {
         enterData = false;
       }
@@ -195,11 +189,10 @@ class FireBaseHelper {
   }
   
   Future<QuerySnapshot<Map<String, dynamic>>> readDataFromId({id}) {
-    return inse.collection('Product').where(FieldPath.documentId,isEqualTo:id).get();
+    return inse.collection('Product').where(FieldPath.documentId,isEqualTo: id).get();
   }
 
-  Map userData()
-  {
+  Map userData() {
     User? user = firebaseAuth.currentUser;
     String? name = user!.displayName;
     String? email = user.email;
@@ -210,5 +203,27 @@ class FireBaseHelper {
       "Email":email,
     }.obs;
     return data;
+  }
+
+  Future<bool> addDataInDispatchCollection({String? Uid, String? productId,}) {
+    return inse.collection('Dispatch').add({
+      "Uid":Uid,
+      "productId": productId
+    }).then((value){
+      return true;
+    });
+  }
+
+  Future<bool> deleteDataFromOrderCollection({String? aid})
+  {
+    return inse.collection('Requester For Purchase').doc(aid).delete().then((value) {
+      OrderScreenController getxOrderScreenController = Get.put(OrderScreenController());
+      getxOrderScreenController.getOrderData();
+      return true;
+    });
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> readDispatchData() {
+    return inse.collection('Dispatch').get();
   }
 }

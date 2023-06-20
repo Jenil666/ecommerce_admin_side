@@ -22,8 +22,6 @@ class SignInScreenController extends GetxController
       {
         adminDatas.add(data[i]['uid']);
       }
-    print('======================== datas');
-    print(adminDatas);
   }
   //ToDo image Variables
   String backGround = "assets/login_images/back_ground.png";

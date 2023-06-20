@@ -10,17 +10,20 @@ class ProductPreviewController extends GetxController
     "Add Data",
     "Category",
     "Orders",
+    "Dispatched",
   ];
   List<dynamic> icon = [
    Icons.messenger,
    Icons.add,
    Icons.category,
    Icons.remove_from_queue_sharp,
+   Icons.move_down
   ];
   List navagtin = [
     '/notification',
     '/dataEntry',
     '/category',
     '/order',
+    '/dispatch',
   ];
 }

@@ -259,15 +259,12 @@ class _SignInScreenState extends State<SignInScreen> {
     if(getxSignInScreenController.buttonData.value == "Tap To Continue")
     {
       i++;
-      print('$i times Method Call');
-      print("==================== Uid ${getxSignInScreenController.uid}");
       if(getxSignInScreenController.uid.value != "")
       {
         for(int i=0;i<getxSignInScreenController.adminDatas.length;i++)
         {
           if(getxSignInScreenController.adminDatas[i] == getxSignInScreenController.uid.value)
           {
-            print("============================== Done");
             Shr.shr.setData(true);
             verified = true;
             getxSignInScreenController.checkCircularProgressIndicator.value = false;
